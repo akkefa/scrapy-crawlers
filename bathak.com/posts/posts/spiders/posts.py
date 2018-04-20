@@ -14,5 +14,21 @@ class PostSpider(CrawlSpider):
 
     rules = (
         Rule(LinkExtractor(restrict_css='div.cat-list')),
-        Rule(LinkExtractor(restrict_css='div.styleThree'))
+        Rule(LinkExtractor(restrict_css='div.styleThree'),
+             callback="parse_post")
         )
+
+    def parse_post(self, response):
+        """
+        Parsing bathak Post data
+        Args:
+            response:
+
+        Returns:
+
+        """
+        post = response.css('div.detailNews ::text').extract()
+
+        yield {
+            'post': " ".join(post)
+            }
