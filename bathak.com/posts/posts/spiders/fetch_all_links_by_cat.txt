@@ -1,0 +1,45 @@
+"""Scraping bathak.com posts"""
+
+from bs4 import BeautifulSoup
+import pickle
+import requests
+
+categories_id = ['379', '384', '386', '380', '385', '382', '383', '381']
+links = set()
+
+for cat_id in categories_id:
+
+    for offset in range(1, 10000):
+
+        t = "offset {} and cat_id {}".format(
+            offset, cat_id)
+        print(t)
+        print(len(links))
+
+        r = requests.post(
+            'http://bathak.com/ajax/categoryListing',
+            data={'offset': offset, 'id': cat_id})
+
+        if r.status_code != 200:
+            t = "offset_id {} with category {} failed!".format(offset, cat_id)
+            print(t)
+
+        if r.status_code == 200:
+
+            if r.text == '':
+                t = "Breaking the loop with offset {} and cat_id {}".format(
+                    offset, cat_id)
+                print(t)
+                break
+
+            soup = BeautifulSoup(r.text, "html5lib")
+            for link in soup.findAll('a', href=True, ):
+                data = (cat_id, link['href'])
+                links.add(data)
+
+    fname = "cat_post_links_{}.pk".format(cat_id)
+    with open(fname, 'wb') as f:
+        pickle.dump(links, f)
+
+with open('all_post_links_by_cat.pkl', 'wb') as f:
+    pickle.dump(links, f)
