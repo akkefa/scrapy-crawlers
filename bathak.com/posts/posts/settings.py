@@ -15,8 +15,8 @@ SPIDER_MODULES = ['posts.spiders']
 NEWSPIDER_MODULE = 'posts.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Study Purpose/Research Purpose/No commercial use. Concerns at ' \
-             'mrikram1989@gmail.com'
+# USER_AGENT = 'Study Purpose/Research Purpose/No commercial use. Concerns at ' \
+#              'mrikram1989@gmail.com'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -64,9 +64,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'posts.pipelines.PostsPipeline': 300,
-# }
+ITEM_PIPELINES = {
+    'posts.pipelines.PostsPipeline': 300,
+    }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -77,14 +77,14 @@ AUTOTHROTTLE_START_DELAY = 0.6
 AUTOTHROTTLE_MAX_DELAY = 20
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+# AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 # Enable showing throttling stats for every response received:
-#AUTOTHROTTLE_DEBUG = False
+# AUTOTHROTTLE_DEBUG = False
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
 HTTPCACHE_ENABLED = True
-#HTTPCACHE_EXPIRATION_SECS = 0
-#HTTPCACHE_DIR = 'httpcache'
-#HTTPCACHE_IGNORE_HTTP_CODES = []
-#HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+# HTTPCACHE_EXPIRATION_SECS = 0
+# HTTPCACHE_DIR = 'httpcache'
+# HTTPCACHE_IGNORE_HTTP_CODES = []
+# HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'

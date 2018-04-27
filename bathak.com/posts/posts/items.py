@@ -8,7 +8,10 @@
 import scrapy
 
 
-class PostsItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class PostItem(scrapy.Item):
+    """
+    Bathak Post Items to fetch
+    """
+    id = scrapy.Field()
+    category = scrapy.Field()
+    text = scrapy.Field()

@@ -2,6 +2,7 @@
 
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
+from posts.items import PostItem
 
 
 class PostSpider(CrawlSpider):
@@ -27,8 +28,11 @@ class PostSpider(CrawlSpider):
         Returns:
 
         """
-        post = response.css('div.detailNews ::text').extract()
+        post_data = response.css('div.detailNews ::text').extract()
 
-        yield {
-            'post': " ".join(post)
-            }
+        post_item = PostItem()
+        post_item['id'] = response.url
+        post_item['category'] = response.url
+        post_item['text'] = " ".join(post_data)
+
+        return post_item
