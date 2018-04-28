@@ -1,6 +1,7 @@
 """Bathak posts Spider"""
 
 import scrapy
+import json
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from posts.items import PostItem
@@ -21,6 +22,49 @@ class PostSpider(CrawlSpider):
         )
 
     def parse_post(self, response):
+        """
+        Parsing bathak Post data
+        Args:
+            response:
+
+        Returns:
+
+        """
+        post_data = response.css('div.detailNews ::text').extract()
+
+        post_item = PostItem()
+        post_item['id'] = response.url
+        post_item['category'] = response.url
+        post_item['text'] = " ".join(post_data)
+
+        return post_item
+
+
+class PostUrlSpider(scrapy.Spider):
+    """
+    Fetching Bathak Post by json urls list
+    """
+
+    name = "json_urls"
+    allowed_domains = ["www.bathak.com"]
+
+    def start_requests(self):
+        """
+
+        Returns:
+
+        """
+        urls = json.load(open('urls.json'))
+        for item in urls:
+            url = 'http://www.bathak.com{}'.format(item['url'])
+
+            post_name = url.split('/')[-1]
+            post_id = int(post_name.split('-')[-1])
+
+            if 163458 < post_id:
+                yield scrapy.Request(url=url, callback=self.parse)
+
+    def parse(self, response):
         """
         Parsing bathak Post data
         Args:

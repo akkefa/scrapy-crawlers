@@ -43,3 +43,11 @@ for cat_id in categories_id:
 
 with open('all_post_links_by_cat.pkl', 'wb') as f:
     pickle.dump(links, f)
+
+
+import json
+
+data = json.load(open('posts.json'))
+
+for item in data:
+    print(item['text'])
