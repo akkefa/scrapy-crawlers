@@ -43,6 +43,7 @@ class PostSpider(CrawlSpider):
 class PostUrlSpider(scrapy.Spider):
     """
     Fetching Bathak Post by json urls list
+    Command : scrapy crawl json_urls -o posts.json -t json
     """
 
     name = "json_urls"
@@ -61,7 +62,7 @@ class PostUrlSpider(scrapy.Spider):
             post_name = url.split('/')[-1]
             post_id = int(post_name.split('-')[-1])
 
-            if 163458 < post_id:
+            if 165509 < post_id:
                 yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
@@ -86,6 +87,8 @@ class PostUrlSpider(scrapy.Spider):
 class CategorySpider(scrapy.Spider):
     """
     Fetching post data
+    Command : scrapy crawl fetch_posts_url -o urls.json -t json
+
     """
     name = "fetch_posts_url"
     allowed_domains = ["www.bathak.com"]
