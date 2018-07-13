@@ -1,2 +1,2 @@
 # scrapy-crawlers
-Collection of scrapy crawlers for my Data science projects.
+All my scrapy crawlers for Data science projects.
